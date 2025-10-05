@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { vi } from 'vitest'
 import Home from '../pages/Home/Home'
 import { getTodos } from '../api/todoApi'
@@ -17,7 +18,11 @@ describe('Home - render / empty state', () => {
     ]
     getTodos.mockResolvedValueOnce({ data: sampleTodos })
 
-    render(<Home />)
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    )
 
     const t1 = await screen.findByText('T1')
     const t2 = await screen.findByText('T2')
@@ -27,7 +32,11 @@ describe('Home - render / empty state', () => {
 
   it('shows empty state when there are no todos', async () => {
     getTodos.mockResolvedValueOnce({ data: [] })
-    render(<Home />)
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    )
 
     const empty = await screen.findByText(/No Tasks, Add a task to get started!/i)
     expect(empty).toBeInTheDocument()

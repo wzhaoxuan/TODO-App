@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { vi } from 'vitest'
 import Home from '../pages/Home/Home'
 import { getTodos, deleteTodo } from '../api/todoApi'
@@ -19,7 +20,11 @@ describe('Home - delete functionality', () => {
     getTodos.mockResolvedValueOnce({ data: sampleTodos })
     deleteTodo.mockResolvedValueOnce({})
 
-    render(<Home />)
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    )
 
     const t1 = await screen.findByText('T1')
     expect(t1).toBeInTheDocument()
@@ -44,7 +49,11 @@ describe('Home - delete functionality', () => {
     getTodos.mockResolvedValueOnce({ data: sampleTodos })
     deleteTodo.mockRejectedValueOnce(new Error('Failed to delete'))
 
-    render(<Home />)
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    )
 
     const t1 = await screen.findByText('T1')
     expect(t1).toBeInTheDocument()
