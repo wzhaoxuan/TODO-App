@@ -1,5 +1,13 @@
 .card{
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+    border-radius: 12px;
+    padding: 1rem;
     margin-bottom: 0.8rem;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease;
+    user-select: none;
 }
 
 .card-header {
@@ -7,6 +15,17 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
+}
+
+.card:focus,
+.card:focus-visible {
+    outline: none;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12), 0 0 0 3px rgba(59,130,246,0.15);
+    transform: translateY(-2px);
+}
+
+.card:hover {
+    transform: translateY(-2px);
 }
 
 
@@ -29,3 +48,16 @@
     background: #dc2626; /* red */
     box-shadow: 0 6px 14px rgba(220, 38, 38, 0.18);
 }
+
+.card-actions .status-btn {
+    background: #0ea5e9; /* blue */
+    box-shadow: 0 6px 14px rgba(14,165,233,0.14);
+}
+
+.card-actions button:hover { transform: translateY(-1px); }
+
+.card-actions button:active { transform: translateY(0); }
+
+/* Prevent inner buttons from showing pointer cursor for the card container
+   but keep them clickable and visually distinct. */
+.card-actions button { cursor: pointer; }

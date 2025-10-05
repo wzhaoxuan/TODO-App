@@ -1,0 +1,84 @@
+.edit-form{
+  display: grid;
+  gap: 1.5rem;
+  padding: 0.6rem 0;
+}
+
+.edit-form h1{
+  margin: 0 0 0.5rem 0;
+}
+
+.edit-form label{
+  display:block;
+  margin-bottom: .35rem;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+.edit-task-title input,
+.edit-task-description textarea{
+  width: 100%;
+  padding: .6rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+  background: transparent;
+  color: white;
+  font-size: 1rem;
+  resize: none;
+}
+
+.edit-task-title input:focus,
+.edit-task-description textarea:focus{
+  outline: none;
+  box-shadow: 0 6px 20px rgba(124,58,237,0.12), 0 0 0 4px rgba(124,58,237,0.06);
+}
+
+/* fixed height and hide overflow to remove scrollbar */
+.edit-task-description textarea{
+  height: 140px;
+  overflow: auto; /* allow scrolling */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.edit-task-description textarea::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+}
+
+.form-actions{
+  display:flex;
+  gap:.6rem;
+  align-items:center;
+}
+
+.btn-primary{
+  padding:.6rem .9rem;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+  background: linear-gradient(90deg,var(--accent), #5b21b6);
+  color: white;
+  box-shadow: 0 8px 24px rgba(92,33,182,0.14);
+}
+
+.btn-primary:hover{ transform: translateY(-2px); }
+
+.btn-secondary{
+  padding:.55rem .85rem;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+}
+
+@media (max-width:720px){
+  .new-task-form{ padding: .5rem 0 }
+}
+
+/* ensure clear vertical spacing between title and description blocks */
+.edit-task-title{
+  margin-bottom: 0.8rem;
+}

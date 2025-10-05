@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { getTodos, deleteTodo } from '../../api/todoApi.jsx'
+import { useNavigate } from 'react-router-dom'
+import { getTodos, deleteTodo, updateTodo } from '../../api/todoApi.jsx'
 import './Home.css'
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(()=> {
     const fetchTodos = async () =>{
@@ -27,18 +29,45 @@ export default function Home() {
     }
   }
 
+  // navigate to an edit page 
+  const handleEdit = (id) => {
+    navigate(`/todos/${id}/edit`);
+  }
+
+  // toggle completion state
+  const handleToggleComplete = async (id, current) => {
+    try {
+      const response = await updateTodo(id, { is_completed: !current });
+      setTodos(prev => prev.map(t => t.id === id ? response.data : t));
+    } catch (error) {
+      console.error('Error toggling todo:', error);
+    }
+  }
+
   return (
     <div>
       <h1>To Do List</h1>
       <div className="card-container">
          {todos.length > 0 ? (
               todos.map(todo => (
-                <div key={todo.id} className = "card">
+                <div
+                  key={todo.id}
+                  className="card"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleEdit(todo.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleEdit(todo.id);
+                    }
+                  }}
+                >
                   <div className = "card-header"> 
                     <h2> {todo.title} </h2>
                     <div className = "card-actions">
-                      <button className='delete-btn' onClick={() => handleDelete(todo.id)}> Delete </button>
-                      <button className='status-btn'> {todo.is_completed ? "Complete" : "Incomplete"} </button>
+                      <button className='delete-btn' onClick={(e) => { e.stopPropagation(); handleDelete(todo.id); }}> Delete </button>
+                      <button className='status-btn' onClick={(e) => { e.stopPropagation(); handleToggleComplete(todo.id, todo.is_completed); }}> {todo.is_completed ? "Complete" : "Incomplete"} </button>
                     </div>
                   </div>
                   <div className = "card-body">
