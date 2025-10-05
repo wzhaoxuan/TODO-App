@@ -70,4 +70,10 @@ class TodoController extends Controller
         $todo->delete();
         return response()->json(null, 204);
     }
+
+    public function destroyAll()
+    {
+        Todo::truncate();
+        return response()->json(null, 204);
+    }
 }
