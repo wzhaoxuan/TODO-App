@@ -17,7 +17,7 @@ class TodoIndexTest extends TestCase
     {
         Todo::factory()->count(5)->create();
 
-        $response = $this->getJson('todos');
+        $response = $this->getJson('api/todos');
 
         $response->assertStatus(200)
                  ->assertJsonCount(5);
