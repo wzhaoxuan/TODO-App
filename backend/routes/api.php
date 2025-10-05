@@ -8,3 +8,4 @@ use App\Http\Controllers\TodoController;
 // Define a route to get all todos
 Route::get('/todos', [TodoController::class, 'index']);
 Route::post('/todos', [TodoController::class, 'store']);
+Route::put('/todos/{id}', [TodoController::class, 'update']);
