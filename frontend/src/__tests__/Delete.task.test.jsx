@@ -1,14 +1,17 @@
-import React from 'react'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
 import { vi } from 'vitest'
+import React from 'react'
+import { render, screen, waitFor, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { MemoryRouter } from 'react-router-dom'
 import Home from '../pages/Home/Home'
 import { getTodos, deleteTodo } from '../api/todoApi'
+
 
 vi.mock('../api/todoApi', () => ({
   getTodos: vi.fn(),
   deleteTodo: vi.fn(),
 }))
+
 
 describe('Home - delete functionality', () => {
   it('deletes a todo when delete button is clicked', async () => {
@@ -29,11 +32,13 @@ describe('Home - delete functionality', () => {
     const t1 = await screen.findByText('T1')
     expect(t1).toBeInTheDocument()
 
-    const deleteButtons = screen.getAllByText(/delete/i)
-    vi.spyOn(window, 'confirm').mockImplementation(() => true)
-    fireEvent.click(deleteButtons[0])
+  // Find delete button inside the first todo card (avoid header "Delete All")
+  const card = t1.closest('.card')
+  const deleteBtn = within(card).getByText(/delete/i)
+  vi.spyOn(window, 'confirm').mockImplementation(() => true)
+  await userEvent.click(deleteBtn)
 
-    expect(deleteTodo).toHaveBeenCalledWith(1)
+  expect(deleteTodo).toHaveBeenCalledWith(1)
 
     await waitFor(() => {
       expect(screen.queryByText('T1')).not.toBeInTheDocument()
@@ -58,11 +63,12 @@ describe('Home - delete functionality', () => {
     const t1 = await screen.findByText('T1')
     expect(t1).toBeInTheDocument()
 
-    const deleteButtons = screen.getAllByText(/delete/i)
-    vi.spyOn(window, 'confirm').mockImplementation(() => true)
-    fireEvent.click(deleteButtons[0])
+  const card = t1.closest('.card')
+  const deleteBtn = within(card).getByText(/delete/i)
+  vi.spyOn(window, 'confirm').mockImplementation(() => true)
+  await userEvent.click(deleteBtn)
 
-    expect(deleteTodo).toHaveBeenCalledWith(1)
+  expect(deleteTodo).toHaveBeenCalledWith(1)
 
     await waitFor(() => {
       expect(screen.queryByText('T1')).toBeInTheDocument()
