@@ -66,6 +66,8 @@ class TodoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $todo = Todo::findOrFail($id);
+        $todo->delete();
+        return response()->json(null, 204);
     }
 }
