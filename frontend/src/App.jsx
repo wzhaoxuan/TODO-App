@@ -1,34 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-
+import { getTodos } from './api/todoApi.jsx'
+import { useState, useEffect } from 'react'
 function App() {
-  const [count, setCount] = useState(0)
+  const [todos, setTodos] = useState([]);
+
+  useEffect(()=> {
+    const fetchTodos = async () =>{
+      try{
+        const response = await getTodos();
+        setTodos(response.data);
+      }catch (error) {
+        console.error("Error fetching todos:", error);
+      }
+    }
+
+    fetchTodos();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className = "app-container">
+      <nav className = "app-nav">
+        <h1>Task</h1>
+        <div className = "nav-action"> 
+          <button> Today </button>
+        </div>
+      </nav>
+      <main className = "app-main">
+        <h1>To Do List</h1>
+          {
+            todos.length > 0 ? (
+              todos.map(todo => (
+                <div className = "card">
+                  <div className = "card-header"> 
+                    <h2> {todo.title} </h2>
+                    <button> {todo.is_completed ? "Complete" : "Incomplete"} </button>
+                  </div>
+                  <div className = "card-body">
+                    <p> {todo.description ? todo.description : "No description available"} </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p> No Tasks, Add a task to get started! </p>
+            )
+          }
+      </main>
+    </div>
   )
 }
 
