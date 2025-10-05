@@ -1,3 +1,22 @@
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-all-btn {
+    background: #dc2626; /* red */
+    color: white;
+    border: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight:600;
+    box-shadow: 0 6px 14px rgba(220, 38, 38, 0.18);
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+
+
 .card{
     display: flex;
     flex-direction: column;

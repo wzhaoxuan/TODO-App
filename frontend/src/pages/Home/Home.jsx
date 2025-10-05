@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getTodos, deleteTodo, updateTodo } from '../../api/todoApi.jsx'
+import { getTodos, deleteTodo, updateTodo, deleteAllTodos } from '../../api/todoApi.jsx'
 import './Home.css'
 
 export default function Home() {
@@ -29,6 +29,15 @@ export default function Home() {
     }
   }
 
+  const handleDeleteAll = async () => {
+    try{
+      await deleteAllTodos();
+      setTodos([]);
+    } catch (error) {
+      console.error("Error deleting all todos:", error);
+    }
+  }
+
   // navigate to an edit page 
   const handleEdit = (id) => {
     navigate(`/todos/${id}/edit`);
@@ -46,8 +55,11 @@ export default function Home() {
 
   return (
     <div>
-      <h1>To Do List</h1>
-      <div className="card-container">
+      <header className="home-header">
+        <h1>To Do List</h1>
+        <button className="delete-all-btn" onClick={() => handleDeleteAll()}> Delete All </button>
+      </header>
+      <main className="card-container">
          {todos.length > 0 ? (
               todos.map(todo => (
                 <div
@@ -79,7 +91,7 @@ export default function Home() {
               <p> No Tasks, Add a task to get started! </p>
             )
           }
-      </div>
+      </main>
     </div>
   )
 }
