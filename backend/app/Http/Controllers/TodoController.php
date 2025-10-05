@@ -27,6 +27,11 @@ class TodoController extends Controller
             'is_completed' => 'boolean',
         ]);
 
+        // // Normalize null description to empty string
+        // if (array_key_exists('description', $validated) && $validated['description'] === null) {
+        //     $validated['description'] = '';
+        // }
+
         $todo = Todo::create($validated);
         return response()->json($todo, 201);
     }

@@ -13,3 +13,19 @@
 .card-header h2, .card-body p {
     margin: 0;
 }
+
+.card-actions button {
+    margin-left: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 0.85rem;
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+
+.card-actions .delete-btn {
+    background: #dc2626; /* red */
+    box-shadow: 0 6px 14px rgba(220, 38, 38, 0.18);
+}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getTodos } from '../../api/todoApi.jsx'
+import { getTodos, deleteTodo } from '../../api/todoApi.jsx'
 import './Home.css'
 
 export default function Home() {
@@ -18,6 +18,15 @@ export default function Home() {
     fetchTodos();
   }, []);
 
+  const handleDelete = async (id) => {
+    try{
+      await deleteTodo(id);
+      setTodos(todos.filter(todo => todo.id !== id));
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+    }
+  }
+
   return (
     <div>
       <h1>To Do List</h1>
@@ -27,7 +36,10 @@ export default function Home() {
                 <div key={todo.id} className = "card">
                   <div className = "card-header"> 
                     <h2> {todo.title} </h2>
-                    <button> {todo.is_completed ? "Complete" : "Incomplete"} </button>
+                    <div className = "card-actions">
+                      <button className='delete-btn' onClick={() => handleDelete(todo.id)}> Delete </button>
+                      <button className='status-btn'> {todo.is_completed ? "Complete" : "Incomplete"} </button>
+                    </div>
                   </div>
                   <div className = "card-body">
                     <p> {todo.description ? todo.description : "No description available"} </p>
