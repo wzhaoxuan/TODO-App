@@ -56,7 +56,7 @@ export default function EditTask() {
     
         <div className="form-actions">
             <button type="submit" className="btn-primary" disabled={loading}>{loading ? 'Saving...' : 'Save'}</button>
-            <button button type="button" className="btn-secondary" onClick={() => navigate('/')}>Cancel</button>
+            <button type="button" className="btn-secondary" onClick={() => navigate('/')}>Cancel</button>
         </div>
       </form>
     </div>
