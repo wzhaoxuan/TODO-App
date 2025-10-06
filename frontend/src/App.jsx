@@ -7,13 +7,15 @@ import EditTask from './pages/EditTask/EditTask'
 function App() {
   return (
     <div className="app-container">
+      <h1 className="app-header">TODO App</h1>
       <nav className="app-nav">
-        <h1>Task</h1>
-        <div className="nav-action">
-          <Link to="/add">
-            <button> Add Task </button>
+          <Link to="/add" className="nav-section tasks" aria-label="Add Task">
+            <span className="nav-btn">Add Task</span>
           </Link>
-        </div>
+
+        <Link to="/completed" className="nav-section nav-footer completed" aria-label="View completed tasks">
+          <span className="nav-btn">View Completed</span>
+        </Link>
       </nav>
       <main className="app-main">
         <Routes>

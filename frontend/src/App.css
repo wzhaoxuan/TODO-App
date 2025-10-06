@@ -1,11 +1,24 @@
 .app-container{
   display: grid;
+  grid-template-areas:
+    "header header"
+    "nav main";
   grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr;
   gap: var(--gap);
   max-width: 1500px;
   margin: 0 auto;
   align-items: start;
   min-height: calc(100vh - 4rem);
+  padding: 1rem;
+}
+
+.app-header{
+  grid-area: header;
+  margin: 0;
+  padding: 0.5rem 0;
+  font-size: 4rem;
+  text-align: center;
 }
 
 .app-nav{
@@ -17,23 +30,188 @@
   display:flex;
   flex-direction:column;
   gap: .75rem;
+  grid-area: nav;
+  align-items: stretch;
+  justify-content: center;
+  padding: 0.75rem;
+  border-radius: 12px;
+  transition: transform .12s ease, box-shadow .12s ease;
+  cursor: pointer;
 }
 
 .app-nav h1{
-  margin:0;
-  font-size:1.25rem;
-  letter-spacing:0.4px;
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: 0.4px;
 }
 
-.app-nav > div{
-  margin-top:auto;
+/* Navigation tile sections (Tasks / Completed) */
+.nav-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: 0.5rem 0;
+  border-radius: 0;
+  transition: none;
+  cursor: default;
+  position: relative;
+  width: 100%;
+  height: auto;
+  background: transparent; /* outer container transparent */
+  border: none;
+  box-shadow: none;
+}
+
+.nav-title{
+  margin: 0;
+  z-index: 2;
+  text-align: center;
+  padding: 0 1rem;
+  font-size: 1.15rem;
+}
+
+/* Make the Link cover the whole tile so clicking anywhere triggers navigation */
+.nav-section .section-actions{
+  position: absolute;
+  inset: 0;
+}
+/* Make the nav-section links behave like tiles */
+.nav-section{
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-section .section-actions a{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.tile-cta{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Button-like label inside nav tiles */
+.nav-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 1rem);
+  height: 44px;
+  margin: 0 auto;
+  border-radius: 8px;
+  font-weight: 700;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.nav-section.tasks .nav-btn{
+  background: linear-gradient(90deg, var(--accent), #5b21b6);
+}
+
+.nav-section.completed .nav-btn{
+  background: #10b981;
+}
+
+@media (max-width: 800px) {
+  .nav-btn{
+    width: 100%;
+  }
+}
+
+.nav-section:focus,
+.nav-section:focus-visible,
+.nav-section:hover{
+  transform: none;
+  box-shadow: none;
+}
+
+/* hide the inner small button; the tile itself is the visual button */
+.nav-section .section-actions a button{
+  display: none;
+}
+
+.nav-section:hover{
+  transform: none;
+  box-shadow: none;
+}
+
+.nav-section.tasks{
+  background: transparent;
+  border: none;
+}
+
+.nav-section.completed{
+  background: transparent;
+  border: none;
+}
+
+@media (max-width: 800px) {
+  .nav-section{
+    height: auto;
+    padding: .75rem;
+  }
+  .nav-section .section-actions a button{
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 }
 
 .nav-action{
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   flex-direction: column;
+}
+
+/* ensure the bottom section stays pinned to the bottom */
+.nav-section.nav-footer{
+  margin-top: auto;
+}
+
+/* Visible button styling and hover moved to the inner element */
+.nav-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  border-radius: 10px;
+  font-weight: 700;
+  color: white;
+  box-sizing: border-box;
+  padding: 0 .75rem;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.nav-section.tasks .nav-btn{
+  background: linear-gradient(90deg, var(--accent), #5b21b6);
+}
+
+.nav-section.completed .nav-btn{
+  background: #10b981;
+}
+
+.nav-btn:hover,
+.nav-btn:focus{
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(2,6,23,0.12);
+}
+
+/* Ensure the Link wrapper and its button can stretch to full width */
+.nav-action a{
+  display: block;
+  width: 100%;
+}
+
+.nav-action a button{
+  width: 100%;
 }
 
 .app-nav button{
@@ -65,12 +243,23 @@
 }
 
 .app-main{
+  grid-area: main;
   padding: 1.2rem;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border-radius: var(--radius);
   border: 1px solid rgba(255,255,255,0.03);
   box-shadow: 0 10px 40px rgba(2,6,23,0.6);
   min-height: 60vh;
+}
+
+@media (max-width: 800px) {
+  .app-container {
+    grid-template-areas:
+      "header"
+      "nav"
+      "main";
+    grid-template-columns: 1fr;
+  }
 }
 
 .app-main p {
