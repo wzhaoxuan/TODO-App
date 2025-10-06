@@ -47,16 +47,12 @@ class TodoController extends Controller
     {
         $todo = Todo::findOrFail($id);
 
+        // Allow partial updates: only validate fields that are present
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'is_completed' => 'boolean',
+            'title' => 'sometimes|required|string|max:255',
+            'description' => 'sometimes|nullable|string',
+            'is_completed' => 'sometimes|boolean',
         ]);
-
-        // Normalize null description to empty string
-        if (array_key_exists('description', $validated) && $validated['description'] === null) {
-            $validated['description'] = '';
-        }
 
         $todo->update($validated);
         return response()->json($todo, 200);
