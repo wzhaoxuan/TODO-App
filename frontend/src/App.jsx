@@ -10,6 +10,10 @@ function App() {
     <div className="app-container">
       <h1 className="app-header">TODO App</h1>
       <nav className="app-nav">
+          <Link to="/" className="nav-section uncompleted" aria-label="Uncompleted tasks">
+            <span className="nav-btn">Uncompleted tasks</span>
+          </Link>
+
           <Link to="/add" className="nav-section tasks" aria-label="Add Task">
             <span className="nav-btn">Add Task</span>
           </Link>

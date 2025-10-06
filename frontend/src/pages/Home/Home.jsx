@@ -56,7 +56,7 @@ export default function Home() {
   return (
     <div>
       <header className="home-header">
-        <h1>To Do List</h1>
+        <h2>Uncompleted Tasks</h2>
         <button className="delete-all-btn" onClick={() => handleDeleteAll()}> Delete All </button>
       </header>
       <main className="card-container">

@@ -19,7 +19,6 @@
 .card-container {
     flex: 1; /* take up remaining space */
     overflow-y: auto; /* enable vertical scrolling if needed */
-    margin-top: 1rem;
     height: 55vh;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */

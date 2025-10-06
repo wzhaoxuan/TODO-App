@@ -28,7 +28,7 @@ const NewTask = () => {
 
     return (
         <div>
-            <h1>Create New Task</h1>
+            <h2>Create New Task</h2>
             <form className="new-task-form" onSubmit={handleSubmit}>
                 <div className="new-task-title">
                     <label htmlFor="title">Title</label>
