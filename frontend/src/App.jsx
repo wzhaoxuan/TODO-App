@@ -1,6 +1,7 @@
 import './App.css'
 import { Link, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/Home'
+import Completed from './pages/Completed/Completed'
 import AddTask from './pages/NewTask/NewTask'
 import EditTask from './pages/EditTask/EditTask'
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/add" element={<AddTask />} />
           <Route path="/todos/:id/edit" element={<EditTask />} />
+          <Route path="/completed" element={<Completed />} />
         </Routes>
       </main>
     </div>

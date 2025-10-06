@@ -60,8 +60,10 @@ export default function Home() {
         <button className="delete-all-btn" onClick={() => handleDeleteAll()}> Delete All </button>
       </header>
       <main className="card-container">
-         {todos.length > 0 ? (
-              todos.map(todo => (
+         {todos.filter(t => !t.is_completed).length > 0 ? (
+              todos
+                .filter(todo => !todo.is_completed)
+                .map(todo => (
                 <div
                   key={todo.id}
                   className="card"
